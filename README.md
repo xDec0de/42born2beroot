@@ -34,3 +34,19 @@ stable build of Debian, which can be found
 
 Now that we have the ISO image, we can create a new Virtual Machine just
 like this:
+
+![image](https://github.com/user-attachments/assets/3353ef25-2fb4-4f06-b8dd-0729ed17da70)
+
+Remember to check the "Skip Unattended Instalation" box, as we will of
+course do all of the instalation manually. Click on **next** and select
+the amount of resources for the VM:
+
+![image](https://github.com/user-attachments/assets/60c1c594-ffd5-49d3-af0e-8239498f3a52)
+
+Now it's time to create a virtual disk. This is where all of the information
+of our VM will be stored, so choose the amount wisely and keep in mind that
+Debian itself takes some space:
+
+![image](https://github.com/user-attachments/assets/11739fe1-fdcb-49e7-b7f8-66d28c1df257)
+
+Finally, verify that the information is correct and click on **Finish**.
