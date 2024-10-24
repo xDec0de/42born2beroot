@@ -45,9 +45,9 @@ the amount of resources for the VM:
 
 Now it's time to create a virtual disk. This is where all of the information
 of our VM will be stored, so choose the amount wisely and keep in mind that
-Debian itself takes some space:
+Debian itself takes some space, I'll try 15GB:
 
-![image](https://github.com/user-attachments/assets/11739fe1-fdcb-49e7-b7f8-66d28c1df257)
+![image](https://github.com/user-attachments/assets/013aa857-206c-4b22-93a2-e1148d16f75c)
 
 Finally, verify that the information is correct and click on **Finish**.
 
@@ -105,7 +105,7 @@ This leaves us with the partitions for the **bonus part** ready. Now we need to 
 the disks. Move up to `Configure encrypted volumes -> Yes -> Create encrypted volumes`.
 **ONLY SELECT SDA5** (You can select with space by the way)
 
-![image](https://github.com/user-attachments/assets/16cbcdc9-2c3e-41c8-b829-5e38864a2805)
+![image](https://github.com/user-attachments/assets/6dd39a50-2648-4230-a1dd-bb30b3daf9da)
 
 `Done setting up the partition -> Finish -> <Yes>`. This will now take a while as Debian
 is creating and encrypting our partitions, just be patient and take a break. This is the
@@ -121,14 +121,43 @@ This is the very last (long) step for our installation, _don't panic_. Just go t
 the group name, `Continue`, select `/dev/mapper/sda5_crypt`, press **enter**, now let's
 actually create the logical volumes
 
-- Create Logical Volume -> LVMGroup -> root -> 2.8G
-- Create Logical Volume -> LVMGroup -> home -> 2G
-- Create Logical Volume -> LVMGroup -> swap -> 1G
-- Create Logical Volume -> LVMGroup -> tmp -> 2G
-- Create Logical Volume -> LVMGroup -> srv -> 1.5G
-- Create Logical Volume -> LVMGroup -> var -> 2G
-- Create Logical Volume -> LVMGroup -> var-log -> 2G
+- Create logical volume -> LVMGroup -> root -> 2.8G
+- Create logical volume -> LVMGroup -> home -> 2G
+- Create logical volume -> LVMGroup -> swap -> 1G
+- Create logical volume -> LVMGroup -> tmp -> 2G
+- Create logical volume -> LVMGroup -> srv -> 1.5G
+- Create logical volume -> LVMGroup -> var -> 2G
+- Create logical volume -> LVMGroup -> var-log -> 2G
 
-`Display configuration settings` should look something like this: (TODO: UPDATE PARTITION SIZES)
+`Display configuration settings` should look something like this
 
-![image](https://github.com/user-attachments/assets/c591959f-aa70-43ed-b449-f2da55229bb9)
+![image](https://github.com/user-attachments/assets/d98dfa1c-1c1b-47ac-9ccb-9b9acf9327d6)
+
+Once you confirm that your settings match select `Continue`, then `Finish`. Now you will
+see a list with all of the logical volumes you created, you can identify them by this
+format: `LVM VG LVMGroup, LV <name> ...`, that "name" being the part that identifies the
+group. Knowing that, you can follow this list, volumes are identified by name:
+
+- `home -> #1 X GB -> Use as: ... -> Ext4 ... -> Mount point: ... -> /home -> Done`
+- `root -> #1 X GB -> Use as: ... -> Ext4 -> Mount point -> / -> Done`
+- `srv -> #1 X GB -> Use as: ... -> Ext4 -> Mount point -> /srv -> Done`
+- `swap -> #1 X GB -> Use as: ... -> swap area -> Done`
+- `tmp -> #1 X GB -> Use as: ... -> Ext4 -> Mount point -> /tmp -> Done`
+- `var -> #1 X GB -> Use as: ... -> Ext4 -> Mount point -> /var -> Done`
+- `var-log -> #1 X GB -> Use as: ... -> Ext4 -> Mount point -> Enter manually -> /var/log -> Done`
+
+Once done, your setup should look something like this:
+
+![image](https://github.com/user-attachments/assets/fe95f3e9-8578-4a1d-9508-6bff0d8f61c8)
+
+Now just scroll down and select `Finish partitioning and write changes to disk -> Yes`
+This will once again take some time. Yes, this project is tedious.
+
+After waiting for some time, you will be asked to scan extra installation media, just
+kindly deny the offer by selecting `<No>`, now choose country and mirror. I selected
+`Spain -> deb.debian.org`, leave proxy blank and select `Continue`. Wait again :D
+
+Once again kindly deny to participate in surveys by selecting `No`, uncheck everything
+as we will install things manually. `Yes -> /dev/sda -> Continue`, Done! For now...
+The VM should automatically restart after this. Note that every time you start the
+VM you will need to enter the passphrase to unlock your disk.
