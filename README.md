@@ -161,3 +161,44 @@ Once again kindly deny to participate in surveys by selecting `No`, uncheck ever
 as we will install things manually. `Yes -> /dev/sda -> Continue`, Done! For now...
 The VM should automatically restart after this. Note that every time you start the
 VM you will need to enter the passphrase to unlock your disk.
+
+## Sudo
+
+Now it's time to install sudo _(**su**per **u**ser **do**)_, a very descriptive name.
+This program is used to securily execute programs with the privileges of other users,
+generally root privileges. You can of course just use the root use, but it is common
+to install sudo instead. After this explanation, have you really thought about why
+we created the partitions previously or were you just following the guide?
+
+Alright, I will no longer remember you about researching every step. Now let's install
+sudo, shall we? First, you must be in the **root** user, this can be acheived by
+directly loggin in to the root user when you start the VM or just by running `su root`.
+Once you have verified that you are using the root user, run the following commands:
+```
+apt update
+apt upgrade
+apt install sudo
+```
+Once installed, the subjet tells us to modify some things, we can do that by editing
+the file **sudoers.tmp** with the `visudo` command, then you can add this to the
+bottom of the file, yes, one tab is used for spacing:
+```
+Defaults     passwd_tries=3
+Defaults     badpass_message="Wrong password :("
+Defaults     logfile="/var/log/sudo/sudo.log"
+Defaults     log_input
+Defaults     log_output
+Defaults     requiretty
+```
+Just use _Ctrl + O_, _Enter_ and finally _Ctrl + X_ to save.
+This applies the following configuration to sudo:
+- Limit the sudo login attepts to 3.
+- Modify the login error message _(You can customize it)_.
+- Logs input and output to the /var/log/sudo/sudo.log file.
+- Enable **TTY** mode.
+The `/var/log/sudo` should exist, if not, create it. Please avoid creating it at
+`/root/var/log/sudo` as I almost did. To verify that this works you can run some
+command with sudo, like `sudo pwd`, then run `cat var/log/sudo/sudo.log` to see
+the contents of the file. It should look something like this:
+
+![image](https://github.com/user-attachments/assets/ce5b82bd-e8f9-4f4f-8f74-9eec05e7bed1)
