@@ -202,3 +202,19 @@ command with sudo, like `sudo pwd`, then run `cat var/log/sudo/sudo.log` to see
 the contents of the file. It should look something like this:
 
 ![image](https://github.com/user-attachments/assets/ce5b82bd-e8f9-4f4f-8f74-9eec05e7bed1)
+
+## UFW
+
+Time for UFW _(**U**ncomplicated **F**ire**w**all)_. The subject tells us to open
+**ONLY** the port 4242, so that's what we are going to do. UFW allows us to add restrictions
+on which ports of our server can be accessed by closing and opening them. But first, we must
+install it with `sudo apt install ufw`. You will be asked if you really want to install it,
+just type Y and hit enter to confirm. Once installed run `sudo ufw enable` to enable, you
+should receive a confirmation message saying _"Firewall is active and enabled on system
+startup"_. If everything went right, run `sudo ufw allow 4242` to open the 4242 port,
+finally `sudo ufw status` should output this:
+
+![image](https://github.com/user-attachments/assets/0744cee4-f1f4-43a8-b031-60ea170d3911)
+
+That's all. You may want to do your own research on how to open and close ports, remove
+rules and why the status command outputs two rules when we only added one.
