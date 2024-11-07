@@ -209,7 +209,7 @@ Time for UFW _(**U**ncomplicated **F**ire**w**all)_. The subject tells us to ope
 **ONLY** the port 4242, so that's what we are going to do. UFW allows us to add restrictions
 on which ports of our server can be accessed by closing and opening them. But first, we must
 install it with `sudo apt install ufw`. You will be asked if you really want to install it,
-just type Y and hit enter to confirm. Once installed run `sudo ufw enable` to enable, you
+just type _Y_ and hit _enter_ to confirm. Once installed run `sudo ufw enable` to enable, you
 should receive a confirmation message saying _"Firewall is active and enabled on system
 startup"_. If everything went right, run `sudo ufw allow 4242` to open the 4242 port,
 finally `sudo ufw status` should output this:
@@ -218,3 +218,33 @@ finally `sudo ufw status` should output this:
 
 That's all. You may want to do your own research on how to open and close ports, remove
 rules and why the status command outputs two rules when we only added one.
+
+## SSH
+
+A nice and standard way to remotely connect to our server is SSH _(**S**ecure **Sh**ell or
+**S**ecure **S**ocket **S**hell)_. Once again I'll let you do your research on it instead
+of explaining. To install it run `sudo apt install openssh-server`. It will ask for
+confirmation just as UFW did, type _Y_ and hit _enter_. To confirm that SSH was installed
+correctly on our system we can run `sudo systemctl status ssh`, it should output something
+like this:
+
+![image](https://github.com/user-attachments/assets/71f69ef2-6115-49a0-8c5e-982e936ed303)
+
+Now, by default, SSH listens at port **22**. The subject tells us to restrict root login via
+SSH and to listen at port 4242 (The one that we previously opened with UFW, not a coincidence).
+To do this, we must edit the _/etc/ssh/sshd_config_ file with any editor, I'll just use `sudo nano /etc/ssh/sshd_config`. Take special care with the file name as there are files with similar
+names on that directory.
+
+Find line `#Port 22` and change it to `Port 4242` (Yes, you must remove the _#_). Save
+the file and run `sudo systemctl restart ssh`.
+
+Inside your VM, you can run `ssh <your_user>@localhost -p 4242` to connect via SSH to your own VM.
+If it fails, is's because you need to forward the 4242 port on VirtualBox. go to `<Your VM name> ->
+Settings -> Network -> Adapter 1 -> Advanced-> Port Forwarding`.
+
+![image](https://github.com/user-attachments/assets/0ad8ac33-25ca-4e2a-ba06-c98d2016ec2e)
+
+Add a new rule `Host port 4242 and guest port 4242` _(To add rules click that tiny little
+green button, took me a few seconds to notice)_:
+
+![image](https://github.com/user-attachments/assets/ae1929f4-628b-4b69-8242-f2b67db77ad0)
