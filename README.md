@@ -232,7 +232,8 @@ like this:
 
 Now, by default, SSH listens at port **22**. The subject tells us to restrict root login via
 SSH and to listen at port 4242 (The one that we previously opened with UFW, not a coincidence).
-To do this, we must edit the _/etc/ssh/sshd_config_ file with any editor, I'll just use `sudo nano /etc/ssh/sshd_config`. Take special care with the file name as there are files with similar
+To do this, we must edit the _/etc/ssh/sshd_config_ file with any editor, I'll just use
+`sudo nano /etc/ssh/sshd_config`. Take special care with the file name as there are files with similar
 names on that directory.
 
 Find line `#Port 22` and change it to `Port 4242` (Yes, you must remove the _#_). Save
@@ -248,3 +249,19 @@ Add a new rule `Host port 4242 and guest port 4242` _(To add rules click that ti
 green button, took me a few seconds to notice)_:
 
 ![image](https://github.com/user-attachments/assets/ae1929f4-628b-4b69-8242-f2b67db77ad0)
+
+## Password policy
+
+The subject asks us to make a strict password policy to protect our sever accounts, sadly,
+my very secure **potato** password doesn't comply with this policy for some weird reason.
+Anyways, here is the list of requirements:
+
+- Passwords must expire after 30 days.
+- 2 days must pass in order to be able to change a password again.
+- The user must be reminded 7 days before the password expires.
+- The password must be at least 10 characters long, contain an upper and lower case
+  character, a number and can't contain the same character 3 times consecutively.
+- Passwords can't contain the username.
+- New passwords must have at least 7 characters that aren't the same as the old password
+  (This rule doesn't apply for root)
+- All existing users must have their password updated to comply with the policy (root included)
