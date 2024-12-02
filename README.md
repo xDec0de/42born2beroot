@@ -215,6 +215,9 @@ the contents of the file. It should look something like this:
 
 ![image](https://github.com/user-attachments/assets/ce5b82bd-e8f9-4f4f-8f74-9eec05e7bed1)
 
+Also, remember to add your user (In my case daniema3) to sudo. You can do that
+by running `sudo usermod -aG sudo <user>` directly from the root user.
+
 ## Groups
 
 At this point you should have all required users root and a user with your login.
