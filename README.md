@@ -87,6 +87,12 @@ so `daniema3` for me, same for the username, then I will use the same very stron
 for this user. Once you do this, it will ask for your time zone. I obviously selected
 `Madrid`.
 
+## Hostname
+
+Just in case you are using a wrong hostname for any reason, remember that you can change
+it with `hostnamectl set-hostname <hostname>`, then, you can check your hostname by using
+the `hostnamectl status` command. You will need to know how to do this on your evaluation.
+
 ## Disk partitions
 
 Here is where the fun begins, sort of. Select `Manual`
@@ -313,4 +319,4 @@ enforce_for_root
 Yes, you need to remove the '#' characters in order to uncomment the line so it takes
 effect, and yes, the `enforce_for_root` option has no value and you must only remove the
 '#' character. Remember to update all passwords to comply with the policy and you are done.
-By the way, my new password is AmazingPotato123
+By the way, my new password is AmazingPotato123.
