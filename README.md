@@ -166,7 +166,7 @@ VM you will need to enter the passphrase to unlock your disk.
 
 Just in case you are using a wrong hostname for any reason, remember that you can change
 it with `hostnamectl set-hostname <hostname>`, then, you can check your hostname by using
-the `hostnamectl` command. You will need to know how to do this on your evaluation.
+the `hostname` command. You will need to know how to do this on your evaluation.
 
 ## Sudo
 
