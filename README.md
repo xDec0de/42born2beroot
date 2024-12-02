@@ -87,12 +87,6 @@ so `daniema3` for me, same for the username, then I will use the same very stron
 for this user. Once you do this, it will ask for your time zone. I obviously selected
 `Madrid`.
 
-## Hostname
-
-Just in case you are using a wrong hostname for any reason, remember that you can change
-it with `hostnamectl set-hostname <hostname>`, then, you can check your hostname by using
-the `hostnamectl status` command. You will need to know how to do this on your evaluation.
-
 ## Disk partitions
 
 Here is where the fun begins, sort of. Select `Manual`
@@ -168,6 +162,12 @@ as we will install things manually. `Yes -> /dev/sda -> Continue`, Done! For now
 The VM should automatically restart after this. Note that every time you start the
 VM you will need to enter the passphrase to unlock your disk.
 
+## Hostname
+
+Just in case you are using a wrong hostname for any reason, remember that you can change
+it with `hostnamectl set-hostname <hostname>`, then, you can check your hostname by using
+the `hostnamectl` command. You will need to know how to do this on your evaluation.
+
 ## Sudo
 
 Now it's time to install sudo _(**su**per **u**ser **do**)_, a very descriptive name.
@@ -180,14 +180,17 @@ Alright, I will no longer remember you about researching every step. Now let's i
 sudo, shall we? First, you must be in the **root** user, this can be acheived by
 directly loggin in to the root user when you start the VM or just by running `su root`.
 Once you have verified that you are using the root user, run the following commands:
+
 ```
 apt update
 apt upgrade
 apt install sudo
 ```
+
 Once installed, the subjet tells us to modify some things, we can do that by editing
 the file **sudoers.tmp** with the `visudo` command, then you can add this to the
 bottom of the file, yes, one tab is used for spacing:
+
 ```
 Defaults     passwd_tries=3
 Defaults     badpass_message="Wrong password :("
@@ -196,18 +199,45 @@ Defaults     log_input
 Defaults     log_output
 Defaults     requiretty
 ```
+
 Just use _Ctrl + O_, _Enter_ and finally _Ctrl + X_ to save.
 This applies the following configuration to sudo:
+
 - Limit the sudo login attepts to 3.
 - Modify the login error message _(You can customize it)_.
 - Logs input and output to the /var/log/sudo/sudo.log file.
 - Enable **TTY** mode.
+
 The `/var/log/sudo` should exist, if not, create it. Please avoid creating it at
 `/root/var/log/sudo` as I almost did. To verify that this works you can run some
 command with sudo, like `sudo pwd`, then run `cat var/log/sudo/sudo.log` to see
 the contents of the file. It should look something like this:
 
 ![image](https://github.com/user-attachments/assets/ce5b82bd-e8f9-4f4f-8f74-9eec05e7bed1)
+
+## Groups
+
+At this point you should have all required users root and a user with your login.
+However, as stated by the subject, your user (The one with your login) must be
+part of the **sudo** and **user42** groups. By executing `groups` with your user,
+you can see that it doesn't belong to said groups, but rather something like this
+(In my case)
+
+```
+daniema3 cdrom floppy sudo audio dip video plugdev users netdev
+```
+
+The sudo group already exists and is assigned to all sudo users, so we just need
+to create the **user42** group, to do that just execute `groupadd user42`.
+To add the user to the **user42** log back into root with `su root` and run
+`gpasswd -a <user> user42`, then log into your user and use `groups` to check the
+groups of your user. The reason why we log into root and then log back into our
+user is because I noticed that using `groups` with out doing that may cause it
+to not be updated for some reason. Anyways, the new output should be this one:
+
+```
+daniema3 cdrom floppy sudo audio dip video plugdev users netdev user42
+```
 
 ## UFW
 
