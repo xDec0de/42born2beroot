@@ -265,3 +265,52 @@ Anyways, here is the list of requirements:
 - New passwords must have at least 7 characters that aren't the same as the old password
   (This rule doesn't apply for root)
 - All existing users must have their password updated to comply with the policy (root included)
+
+To do this we can open `/etc/login.defs` for the first three requirements, which are all
+related to how the password ages, just search for and change the following:
+
+```
+PASS_MAX_DAYS 30
+PASS_MIN_DAYS 2
+PASS_WARN_AGE 7
+```
+
+PASS_WARN_AGE normally defaults to 7 so most likely you won't even need to change it, however,
+these changes are not applied to existing users, so you must apply them manually with the
+following commands, root included.
+
+```
+$ sudo chage -M 30 <user>
+$ sudo chage -m 2 <user>
+$ sudo chage -W 7 <user>
+```
+
+Once you are done, you can verify the values for each user with `chage -l <user>`.
+
+For the remaining steps we need to install a password validation library. You can do so
+by running `sudo apt install libpam-pwquality`. Once installed, edit the
+`/etc/security/pwquality.conf` to match this:
+
+```
+# ...
+difok = 7
+# ...
+minlen = 10
+# ...
+dcredit = -1
+# ...
+ucredit = -1
+# ...
+maxrepeat = 3
+# ...
+usercheck = 1
+# ...
+retry = 3
+# ...
+enforce_for_root
+```
+
+Yes, you need to remove the '#' characters in order to uncomment the line so it takes
+effect, and yes, the `enforce_for_root` option has no value and you must only remove the
+'#' character. Remember to update all passwords to comply with the policy and you are done.
+By the way, my new password is AmazingPotato123
