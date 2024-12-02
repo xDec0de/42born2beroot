@@ -6,7 +6,7 @@ A guide to setup a simple Debian server with a monitoring script
 
 This guide has been made in order to showcase what I did for this project.
 I strongly recommend to do the project on your own without any guide,
-you will learn a lot more if you to this project by yourself. That being
+you will learn a lot more if you do this project by yourself. That being
 said, this is how I did it, with the goal of getting a 125/125 score.
 
 # The operating system
