@@ -353,3 +353,35 @@ Yes, you need to remove the '#' characters in order to uncomment the line so it 
 effect, and yes, the `enforce_for_root` option has no value and you must only remove the
 '#' character. Remember to update all passwords to comply with the policy and you are done.
 By the way, my new password is AmazingPotato123.
+
+## Monitoring script
+
+This script can be found on this repository, yes. But I encourage you to make your own as
+most likely you will be asked abot how your script works, however, here are some useful
+commands and files that will help you to get all the data you need:
+
+- `wall`: Broadcast a message to all users in all terminals
+- `uname`: Architecture information
+- `cat /proc/cpuinfo`: CPU information
+- `free`: RAM information
+- `df`: Disk information
+- `top -bn1`: Process information
+- `who`: Last boot and connected user information
+- `lsblk`: Partition and LVM information
+- `cat /proc/net/sockstat`: TCP information
+- `hostname`: Hostname and IP information
+- `ip link show` or `ip address`: IP and MAC information
+
+Remember to add execution permissions to your **monitoring.sh** script and to put it
+on the /root directory. I just used `chmod 777 monitoring.sh`. To "enable" the script
+we can use crontab. Just run `systemctl enable cron` to enable cron, then edit it
+with `crontab -e`. The first you run this command it will ask you to choose an editor,
+you can just run nano and add this line to the file:
+
+```
+*/10 * * * * bash /root/monitoring.sh
+```
+
+Save and done. That's everything you need to do on the VM besides checking if the
+script runs every 10 minutes as expected, you could of course reduce the time to one
+minute to avoid waiting, just remember to change it back again.
