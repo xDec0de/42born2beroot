@@ -278,9 +278,10 @@ names on that directory.
 Find line `#Port 22` and change it to `Port 4242` (Yes, you must remove the _#_). Save
 the file and run `sudo systemctl restart ssh`.
 
-Inside your VM, you can run `ssh <your_user>@localhost -p 4242` to connect via SSH to your own VM.
-If it fails, is's because you need to forward the 4242 port on VirtualBox. go to `<Your VM name> ->
-Settings -> Network -> Adapter 1 -> Advanced-> Port Forwarding`.
+Outside of your VM, (On the host machine), you can run `ssh <your_user>@localhost -p 4242`
+to connect via SSH to your own VM. If it fails, is may be because you need to forward the
+4242 port on VirtualBox. go to
+`<Your VM name> -> Settings -> Network -> Adapter 1 -> Advanced-> Port Forwarding`.
 
 ![image](https://github.com/user-attachments/assets/0ad8ac33-25ca-4e2a-ba06-c98d2016ec2e)
 
@@ -288,6 +289,20 @@ Add a new rule `Host port 4242 and guest port 4242` _(To add rules click that ti
 green button, took me a few seconds to notice)_:
 
 ![image](https://github.com/user-attachments/assets/ae1929f4-628b-4b69-8242-f2b67db77ad0)
+
+If this still doesn't let you connect to your VM, and more specifically if you are a
+42 MADRID student, this may be because they are still using port 4242 on this campus for
+whatever reason, you can verify that this is the case by connecting with the `-vvv` flags,
+if you are having this error, you should see something like this:
+
+![image](https://github.com/user-attachments/assets/0167b56e-b3bc-4804-9987-95b3169cead7)
+
+That's an HTML header! It means that we are trying to connect to ssh but we are instead
+connecting to a web service. This is not something you can change as it is not part of
+your VM nor in your power to be changed as far as I know, the accepted solution in this
+case by staff is to use port **4343**. This is a issue I had that make me loose a couple
+of hours. On a side note, if you are curious, you can indeed connect to `localhost:4242`
+on your browser, a white page with the test "{'ftpkg-srv'}" should appear. Weird.
 
 ## Password policy
 
