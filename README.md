@@ -390,8 +390,8 @@ commands and files that will help you to get all the data you need:
 Remember to add execution permissions to your **monitoring.sh** script and to put it
 on the /root directory. I just used `chmod 777 monitoring.sh`. To "enable" the script
 we can use crontab. Just run `systemctl enable cron` to enable cron, then edit it
-with `crontab -e`. The first you run this command it will ask you to choose an editor,
-you can just run nano and add this line to the file:
+with `crontab -e`. The first time you run this command it will ask you to choose an
+editor, you can just run nano and add this line to the file:
 
 ```
 */10 * * * * bash /root/monitoring.sh
