@@ -300,9 +300,9 @@ if you are having this error, you should see something like this:
 That's an HTML header! It means that we are trying to connect to ssh but we are instead
 connecting to a web service. This is not something you can change as it is not part of
 your VM nor in your power to be changed as far as I know, the accepted solution in this
-case by staff is to use port **4343**. This is a issue I had that make me loose a couple
+case by staff is to use port **4243**. This is a issue I had that make me loose a couple
 of hours. On a side note, if you are curious, you can indeed connect to `localhost:4242`
-on your browser, a white page with the test "{'ftpkg-srv'}" should appear. Weird.
+on your browser, a white page with the text "{'ftpkg-srv'}" should appear. Weird.
 
 ## Password policy
 
